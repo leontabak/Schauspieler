@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final APIKey api = APIKey.getInstance();
+
         GridView gridView = (GridView) this.findViewById(R.id.gridview);
         gridView.setAdapter(new ImageAdapter(this));
 
@@ -27,40 +29,13 @@ public class MainActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(MainActivity.this,
-                                MainActivity.this.getString(R.string.selected),
+                                MainActivity.this.getString(R.string.selected) + api.getKey(),
                                 Toast.LENGTH_LONG).show();
                     } // onItemClick()
                 } // OnItemClickListener()
         );
 
 //        mMovieView = (TextView) this.findViewById(R.id.favorite_movies);
-
-//        String[] movieNames = {
-//                "Bridge Over the River Kwai",
-//                "North by Northwest",
-//                "Flight of the Phoenix",
-//                "Great Escape",
-//                "Where Eagles Dare",
-//                "Duck Soup",
-//                "Apollo 13",
-//                "The Right Stuff",
-//                "Goldfinger",
-//                "Silent World",
-//                "French Connection"};
-
-
-        String[] movieNames = {
-                "River Kwai",
-                "Northwest",
-                "Phoenix",
-                "Great Escape",
-                "Eagles Dare",
-                "Duck Soup",
-                "Apollo 13",
-                "Right Stuff",
-                "Goldfinger",
-                "Silent World",
-                "French Connection"};
 
 //        for (String name : movieNames) {
 //            mMovieView.append(name + "\n\n\n");

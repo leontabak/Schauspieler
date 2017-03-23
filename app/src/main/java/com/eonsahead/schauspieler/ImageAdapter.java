@@ -11,33 +11,14 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
-    private Integer[] pictureIds = {
-            R.drawable.arboretum00,
-            R.drawable.arboretum01,
-            R.drawable.arboretum02,
-            R.drawable.arboretum03,
-            R.drawable.arboretum04,
-            R.drawable.arboretum05,
-            R.drawable.arboretum06,
-            R.drawable.arboretum07,
-            R.drawable.arboretum08
-    };
+    private PhotoURLs photoURLs = PhotoURLs.getInstance();
 
-    private String[] photoURLs = {
-            "http://www.countingfromzero.com/images/arboretum00.jpg",
-            "http://www.countingfromzero.com/images/arboretum01.jpg",
-            "http://www.countingfromzero.com/images/arboretum02.jpg",
-            "http://www.countingfromzero.com/images/arboretum03.jpg",
-            "http://www.countingfromzero.com/images/arboretum04.jpg",
-            "http://www.countingfromzero.com/images/arboretum05.jpg",
-            "http://www.countingfromzero.com/images/arboretum06.jpg",
-            "http://www.countingfromzero.com/images/arboretum07.jpg",
-            "http://www.countingfromzero.com/images/arboretum08.jpg"
-    };
 
     public ImageAdapter(Context context) {
         this.mContext = context;
@@ -45,7 +26,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return this.photoURLs.length;
+        return this.photoURLs.getURLs().size();
     } // getCount()
 //    public int getCount() {
 //        return this.pictureIds.length;
@@ -53,7 +34,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public String getItem(int index) {
-        return this.photoURLs[index];
+        return this.photoURLs.getURL(index);
     } // getItem( int )
 
     @Override
