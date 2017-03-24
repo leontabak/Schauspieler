@@ -23,6 +23,7 @@ public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttach = false;
         View view = inflater.inflate(layoutID, viewGroup, shouldAttach);
+//        view.setOnClickListener(new ImageClickListener(context));
         KinoViewHolder viewHolder = new KinoViewHolder(context, view);
         return viewHolder;
     } // onCreateViewHolder( ViewGroup, int )

@@ -47,4 +47,8 @@ public class MovieAbbreviations {
         mCurrentIndex = (mCurrentIndex + 1) % mAbbreviations.size();
         return result;
     } // getNextAbbreviation()
+
+    public int size() {
+        return mAbbreviations.size();
+    } // size()
 } // MovieAbbreviations

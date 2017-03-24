@@ -45,4 +45,9 @@ public class MovieTitles {
         mCurrentIndex = (mCurrentIndex + 1) % mTitles.size();
         return result;
     } // getNextTitle()
+
+    public int size() {
+        return mTitles.size();
+    } // size()
+
 } // MovieTitles

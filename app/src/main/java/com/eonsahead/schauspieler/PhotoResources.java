@@ -45,4 +45,8 @@ public class PhotoResources {
         mCurrentIndex = (mCurrentIndex + 1) % mResources.size();
         return result;
     } // getNextResource()
+
+    public int size() {
+        return mResources.size();
+    } // size()
 } // PhotoResources

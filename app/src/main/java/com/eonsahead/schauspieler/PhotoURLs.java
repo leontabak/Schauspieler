@@ -44,4 +44,8 @@ public class PhotoURLs {
         mCurrentIndex = (mCurrentIndex + 1) % mURLs.size();
         return result;
     } // getNextURL()
+
+    public int size() {
+        return mURLs.size();
+    } // size()
 } // PhotoURLs

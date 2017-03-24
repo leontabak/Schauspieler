@@ -40,12 +40,12 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
 
 //        this.view = (TextView) itemView.findViewById(R.id.view_holder);
         this.view = (ImageView) itemView.findViewById(R.id.poster);
-        this.view.setOnClickListener( new ImageClickListener(mContext));
     } // KinoViewHolder( View )
 
     public void bind(int index) {
 //        view.setText( mAbbreviations.getAbbreviation(index));
 
+        this.view.setOnClickListener( new ImageClickListener(mContext, index));
 
         mPicasso.with(this.mContext).load(mResources.getURL(index))
                 .placeholder(R.drawable.arboretum04)
