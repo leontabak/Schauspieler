@@ -19,11 +19,11 @@ public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
     @Override
     public KinoViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutID = 0;
+        int layoutID = R.layout.one_movie;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttach = false;
         View view = inflater.inflate(layoutID, viewGroup, shouldAttach);
-        KinoViewHolder viewHolder = new KinoViewHolder(view);
+        KinoViewHolder viewHolder = new KinoViewHolder(context, view);
         return viewHolder;
     } // onCreateViewHolder( ViewGroup, int )
 
