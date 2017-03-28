@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieTitles {
-    private static MovieTitles sMovieTitles;
+    private static MovieTitles sMovieTitles = null;
     private final List<String> mTitles;
     private int mCurrentIndex;
 

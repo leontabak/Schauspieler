@@ -47,7 +47,8 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
 
         this.view.setOnClickListener( new ImageClickListener(mContext, index));
 
-        mPicasso.with(this.mContext).load(mResources.getURL(index))
+        // could also load mResources.getURL(index)
+        mPicasso.with(this.mContext).load(mResources.getNextURL())
                 .placeholder(R.drawable.arboretum04)
                 .error(R.drawable.arboretum08)
                 .resize(384, 384)

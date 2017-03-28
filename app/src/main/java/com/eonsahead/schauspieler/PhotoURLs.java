@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoURLs {
-    private static PhotoURLs sPhotoURLs;
+    private static PhotoURLs sPhotoURLs = null;
     private final List<String> mURLs;
     private int mCurrentIndex;
 

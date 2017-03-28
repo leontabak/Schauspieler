@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d( TAG, "here");
-
         mMovies = (RecyclerView) this.findViewById(R.id.favorite_movies);
 
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -40,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         mMovies.setHasFixedSize(true);
 //        mAdapter = new KinoAdapter(MovieAbbreviations.getInstance().getAbbreviations().size());
-        mAdapter = new KinoAdapter(PhotoURLs.getInstance().getURLs().size());
+        mAdapter = new KinoAdapter(MovieQueries.getInstance().size());
         mMovies.setAdapter( mAdapter );
+
+        MovieDB movieDB = MovieDB.getInstance();
+        movieDB.update();
 
 //        final APIKey api = APIKey.getInstance();
 

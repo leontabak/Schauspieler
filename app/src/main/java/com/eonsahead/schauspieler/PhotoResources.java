@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoResources {
-    private static PhotoResources sPhotoResources;
+    private static PhotoResources sPhotoResources = null;
     private final List<Integer> mResources;
     private int mCurrentIndex;
 

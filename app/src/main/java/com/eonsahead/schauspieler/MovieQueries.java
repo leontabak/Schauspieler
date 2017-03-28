@@ -1,88 +1,101 @@
 package com.eonsahead.schauspieler;
 
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieQueries {
-    private static MovieQueries mMovieQueries;
+    private static MovieQueries mMovieQueries = null;
     public int mCurrentIndex;
-    private final List<String> mIMDBnumbers;
+    private final List<URL> mURLs;
     private final String mTheMovieDBKey;
 
     private MovieQueries() {
-        mTheMovieDBKey = "abracabra";
+        mTheMovieDBKey = APIKey.getInstance().getKey();
 
-        mIMDBnumbers = new ArrayList<>();
+        mURLs = new ArrayList<>();
         mCurrentIndex = 0;
 
         // 2001: A Space Odyssey
-        mIMDBnumbers.add(makeURL("tt062622"));
+        mURLs.add(makeURL("tt0062622"));
 
         // Apollo 13
-        mIMDBnumbers.add(makeURL("tt0112384"));
+        mURLs.add(makeURL("tt0112384"));
+
+        // Arranged
+        mURLs.add(makeURL("tt0848542"));
 
         // Beautiful Mind
-        mIMDBnumbers.add(makeURL("tt0268978"));
+        mURLs.add(makeURL("tt0268978"));
 
         // Desk Set
-        mIMDBnumbers.add(makeURL("tt0050307"));
+        mURLs.add(makeURL("tt0050307"));
 
         // Forbidden Planet
-        mIMDBnumbers.add(makeURL("tt0049223"));
+        mURLs.add(makeURL("tt0049223"));
 
         // Imitation Game
-        mIMDBnumbers.add(makeURL("tt2084970"));
+        mURLs.add(makeURL("tt2084970"));
 
         // Live Free or Die Hard
-        mIMDBnumbers.add(makeURL("tt0337978"));
+        mURLs.add(makeURL("tt0337978"));
 
         // Lives of Others
-        mIMDBnumbers.add(makeURL("tt0405094"));
+        mURLs.add(makeURL("tt0405094"));
 
         // Man Who Knew Infinity
-        mIMDBnumbers.add(makeURL("tt0787524"));
+        mURLs.add(makeURL("tt0787524"));
 
         // Sneakers
-        mIMDBnumbers.add(makeURL("tt0105435"));
+        mURLs.add(makeURL("tt0105435"));
 
         // Star Trek IV
-        mIMDBnumbers.add(makeURL("tt0092007"));
+        mURLs.add(makeURL("tt0092007"));
 
     } // MovieQueries()
 
-    private final String makeURL(String imdbNumber) {
+    private final URL makeURL(String imdbNumber) {
         String result = "https://api.themoviedb.org/3/find/" +
                 imdbNumber +
                 "?api_key=" +
                 mTheMovieDBKey +
                 "&language=en-US&external_source=imdb_id";
 
-        return result;
+        URL url = null;
+        try {
+            url = new URL(result);
+        } // try
+        catch( MalformedURLException e ) {
+            e.printStackTrace();
+        } // catch( MalformedURLException )
+
+        return url;
     } // makeURL( String )
 
-    public MovieQueries getInstance() {
+    public static MovieQueries getInstance() {
         if (mMovieQueries == null) {
             mMovieQueries = new MovieQueries();
         } // if
         return mMovieQueries;
     } // getInstance()
 
-    public List<String> get() {
-        return mIMDBnumbers;
-    } // get()
+    public List<URL> getURLs() {
+        return mURLs;
+    } // getURLs()
 
-    public String get(int index) {
-        return mIMDBnumbers.get(index);
-    } // get( int )
+    public URL getURLs(int index) {
+        return mURLs.get(index);
+    } // getURLs( int )
 
-    public String getNextIMDBnumber() {
-        String result = mIMDBnumbers.get( mCurrentIndex );
-        mCurrentIndex = (mCurrentIndex + 1) % mIMDBnumbers.size();
+    public URL getURL() {
+        URL result = mURLs.get( mCurrentIndex );
+        mCurrentIndex = (mCurrentIndex + 1) % mURLs.size();
         return result;
-    } // getNextIMDBnumber()
+    } // getNextURL()
 
     public int size() {
-        return mIMDBnumbers.size();
+        return mURLs.size();
     } // size()
 } // MovieQueries
