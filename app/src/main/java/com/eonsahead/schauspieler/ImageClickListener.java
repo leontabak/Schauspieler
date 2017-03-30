@@ -24,10 +24,10 @@ public class ImageClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Log.d(TAG, "Respond to click on image #" + mIndex);
-        Toast.makeText(mContext, "Alles gut", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Alles gut", Toast.LENGTH_SHORT).show();
         Class descriptionActivity = DescriptionActivity.class;
 
-        Intent intent = new Intent(mContext, DescriptionActivity.class);
+        Intent intent = new Intent(mContext, descriptionActivity);
         MovieDetails details = mMovieDB.getRecords(mIndex);
         intent.putExtra(INTENT_ID, details);
 
