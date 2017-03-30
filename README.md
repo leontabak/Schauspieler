@@ -16,7 +16,7 @@ the catalog of movies (the main page)
     - an average of ratings given to the movie by reviewers
     - the date on which the movie was released
     - a URL for fetching an image of the movie's poster
-- Uses the find method of the themoviedb.org service (with IMDB identification numbers for the movies)
+- Uses the **find** method of the themoviedb.org service (with IMDB identification numbers for the movies)
 
 In writing this program, I learned:
 - how to use the Picasso image loading API and the themoviedb.org movie database API
@@ -24,5 +24,7 @@ In writing this program, I learned:
 - how to use GridLayoutManager
 - how to create multiple Activities
 - how to send information from one Activity to another using an Intent and a serializable object
-- how to use the Singleton pattern
-- how to use resource files to specify dimensions, margins, paddings, colors, strings
+- how to use the **singleton** pattern
+- how to use resource files to specify dimensions, margins, paddings, colors, values of strings
+- how to use Android Studio (especially features that help with debugging: logging, logcat, code completion,
+shortcuts for commenting/uncommenting blocks of code, **Toasts**)
