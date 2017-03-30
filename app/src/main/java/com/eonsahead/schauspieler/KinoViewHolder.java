@@ -16,7 +16,7 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private Picasso mPicasso;
-    private PhotoURLs mResources = PhotoURLs.getInstance();
+    private PhotoResources mResources = PhotoResources.getInstance();
     private MovieDB mMovieDB;
 
     private ImageView view;
@@ -53,7 +53,7 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
                     .into(this.view, new PicassoErrorHandler(this.mContext));
         } // if
         else {
-            mPicasso.with(this.mContext).load(mResources.getNextURL())
+            mPicasso.with(this.mContext).load(mResources.getNextResource())
                     .placeholder(R.drawable.arboretum04)
                     .error(R.drawable.arboretum08)
                     .resize(384, 576)
