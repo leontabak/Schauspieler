@@ -22,6 +22,7 @@ In writing this program, I learned:
 - how to use the Picasso image loading API and the themoviedb.org movie database API
 - how to use RecyclerViews, Adapters, and ViewHolders
 - how to use GridLayoutManager
+- how to extend AsyncTask to perform tasks on a background thread
 - how to create multiple Activities
 - how to send information from one Activity to another using an Intent and a serializable object
 - how to use the **singleton** pattern
