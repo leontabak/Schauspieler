@@ -1,5 +1,6 @@
 package com.eonsahead.schauspieler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -16,16 +17,16 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private Picasso mPicasso;
     private PhotoURLs mResources = PhotoURLs.getInstance();
+    private MovieDB mMovieDB;
 
-//    private TextView view;
     private ImageView view;
 
-    private MovieAbbreviations mAbbreviations = MovieAbbreviations.getInstance();
-
-    public KinoViewHolder(Context context, View itemView) {
+    public KinoViewHolder(Context context, View itemView, MovieDB movieDB) {
         super(itemView);
 
         mContext = context;
+        mMovieDB = movieDB;
+
         mPicasso = new Picasso.Builder(this.mContext).listener(new Picasso.Listener() {
             @Override
             public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
@@ -38,20 +39,25 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
         mPicasso.with(this.mContext).setIndicatorsEnabled(true);
         mPicasso.with(this.mContext).setLoggingEnabled(true);
 
-//        this.view = (TextView) itemView.findViewById(R.id.view_holder);
         this.view = (ImageView) itemView.findViewById(R.id.poster);
     } // KinoViewHolder( View )
 
-    public void bind(int index) {
-//        view.setText( mAbbreviations.getAbbreviation(index));
+    public void bind(int index, MovieDB movieDB) {
+        this.view.setOnClickListener(new ImageClickListener(mContext, index, mMovieDB));
 
-        this.view.setOnClickListener( new ImageClickListener(mContext, index));
-
-        // could also load mResources.getURL(index)
-        mPicasso.with(this.mContext).load(mResources.getNextURL())
-                .placeholder(R.drawable.arboretum04)
-                .error(R.drawable.arboretum08)
-                .resize(384, 384)
-                .into(this.view, new PicassoErrorHandler(this.mContext));
+        if (movieDB.isUpdated()) {
+            mPicasso.with(this.mContext).load(movieDB.getRecords(index).getPosterPath())
+                    .placeholder(R.drawable.arboretum04)
+                    .error(R.drawable.arboretum08)
+                    .resize(384, 576)
+                    .into(this.view, new PicassoErrorHandler(this.mContext));
+        } // if
+        else {
+            mPicasso.with(this.mContext).load(mResources.getNextURL())
+                    .placeholder(R.drawable.arboretum04)
+                    .error(R.drawable.arboretum08)
+                    .resize(384, 576)
+                    .into(this.view, new PicassoErrorHandler(this.mContext));
+        } // else
     } // bind( int )
 } // KinoViewHolder

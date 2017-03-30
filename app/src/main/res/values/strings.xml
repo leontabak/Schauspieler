@@ -3,4 +3,5 @@
     <string name="byPopularity">Sort by popularity</string>
     <string name="byRating">Sort by rating</string>
     <string name="selected">Selected</string>
+    <string name="return_to_catalog">Return to catalog</string>
 </resources>

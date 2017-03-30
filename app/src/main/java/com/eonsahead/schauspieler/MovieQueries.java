@@ -13,6 +13,7 @@ public class MovieQueries {
     private final String mTheMovieDBKey;
 
     private MovieQueries() {
+        // Assign your key to themoviedb.org service here.
         mTheMovieDBKey = APIKey.getInstance().getKey();
 
         mURLs = new ArrayList<>();

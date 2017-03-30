@@ -6,9 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MovieDetails {
+public class MovieDetails implements Serializable {
     private static final String TAG = MovieDetails.class.getSimpleName();
 
     private URL mQueryURL;
@@ -30,7 +32,7 @@ public class MovieDetails {
         setVoteAverage(0.0);
         setPopularity(0.0);
         setReleaseDate("DATE");
-        setPosterPath("URL");
+        setPosterPath( null );
     } // MovieDetails( URL )
 
     public URL getQueryURL() {
@@ -117,9 +119,9 @@ public class MovieDetails {
             this.setReleaseDate( releaseDate );
             Log.d( TAG, releaseDate );
 
-            String posterPath = makePosterPath((String) first.get( "poster_path" ), "w185");
+            String posterPath = makePosterPath((String) first.get( "poster_path" ), ImageSizes.w500);
             this.setPosterPath( posterPath );
-            Log.d( TAG, posterPath );
+            Log.d( TAG, posterPath.toString() );
 
             mUpdated = true;
         } // try
@@ -128,7 +130,7 @@ public class MovieDetails {
         } // catch( JSONException )
     } // update( String )
 
-    private String makePosterPath( String fileName, String size ) {
-        return "http://image.tmdb.org/t/p/" + size + "/" + fileName;
+    private String makePosterPath( String fileName, ImageSizes size ) {
+        return "http://image.tmdb.org/t/p/" + size.getSizeSpecifier() + "/" + fileName;
     } // makePosterPath( String, String )
 } // MovieDetails
