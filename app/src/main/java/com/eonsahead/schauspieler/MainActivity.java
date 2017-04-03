@@ -12,8 +12,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private TextView mMovieView;
-
     private RecyclerView mMovies;
     private KinoAdapter mAdapter;
     private MovieDB mMovieDB;
