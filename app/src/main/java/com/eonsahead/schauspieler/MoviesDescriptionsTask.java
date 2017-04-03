@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainActivity> {
     private final String TAG = "MoviesDescriptionsTask";
+
     // Edit the following line. Insert your key for the themoviedb.org online
     // database on the right-hand side of the assignment in place of my call
     // to APIKey.getInstance().getKey().
