@@ -42,11 +42,11 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
         this.view = (ImageView) itemView.findViewById(R.id.poster);
     } // KinoViewHolder( View )
 
-    public void bind(int index, MovieDB movieDB) {
+    public void bind(int index ) {
         this.view.setOnClickListener(new ImageClickListener(mContext, index, mMovieDB));
 
-        if (movieDB.isUpdated()) {
-            mPicasso.with(this.mContext).load(movieDB.getRecords(index).getPosterPath())
+        if( mMovieDB.size() > 0 ) {
+            mPicasso.with(this.mContext).load(mMovieDB.getRecords(index).getPosterPath())
                     .placeholder(R.drawable.arboretum04)
                     .error(R.drawable.arboretum08)
                     .resize(384, 576)

@@ -4,26 +4,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "MainActivity";
 
     private TextView mMovieView;
-    private SourceOfImages src = SourceOfImages.NET;
 
     private RecyclerView mMovies;
     private KinoAdapter mAdapter;
     private MovieDB mMovieDB;
+    private SortCriterion mSortCriterion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMovieDB = new MovieDB(MovieQueries.getInstance(), this);
+        mMovieDB = new MovieDB();
+
+        mSortCriterion = SortCriterion.VOTES;
+        (new MoviesDescriptionsTask()).execute( this );
 
         mMovies = (RecyclerView) this.findViewById(R.id.favorite_movies);
 
@@ -32,10 +36,20 @@ public class MainActivity extends AppCompatActivity {
 
         mMovies.setHasFixedSize(true);
 
-        mMovieDB.update();
-        mMovieDB.sort(SortCriterion.VOTES);
         refresh();
     } // onCreate( Bundle )
+
+    public MovieDB getMovieDB() {
+        return mMovieDB;
+    } // getMovieDB()
+
+    public SortCriterion getSortCriterion() {
+        return mSortCriterion;
+    } // getSortCriterion()
+
+    public void setSortCriterion( SortCriterion criterion ) {
+        mSortCriterion = criterion;
+    } // setSortCriterion( SortCriterion )
 
     public void refresh() {
         mAdapter = new KinoAdapter(mMovieDB);
@@ -52,19 +66,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        String popularity = this.getString(R.string.byPopularity);
-        String rating = this.getString(R.string.byRating);
+        String popularity = getString(R.string.byPopularity);
+        String rating = getString(R.string.byRating);
 
         if (id == R.id.sortingCriterion) {
             if (menuItem.getTitle().equals(rating)) {
                 menuItem.setTitle(popularity);
-                mMovieDB.sort(SortCriterion.POPULARITY);
-                refresh();
+                setSortCriterion(SortCriterion.POPULARITY);
+                (new MoviesDescriptionsTask()).execute( this );
             } // if
             else if (menuItem.getTitle().equals(popularity)) {
                 menuItem.setTitle(rating);
-                mMovieDB.sort(SortCriterion.VOTES);
-                refresh();
+                setSortCriterion(SortCriterion.VOTES);
+                (new MoviesDescriptionsTask()).execute( this );
             } // else if
         } // if
         return super.onOptionsItemSelected(menuItem);

@@ -4,4 +4,6 @@
     <string name="byRating">Sort by rating</string>
     <string name="selected">Selected</string>
     <string name="return_to_catalog">Return to catalog</string>
+    <string name="picasso_error">Effort to load image failed. Try again later.</string>
+    <string name="return_button">Return to catalog</string>
 </resources>

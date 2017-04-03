@@ -15,7 +15,7 @@ public class PicassoErrorHandler implements Callback {
 
     @Override
     public void onError() {
-        String message = "Effort to load image failed. Try again later.";
+        String message = context.getString(R.string.picasso_error);
         Toast.makeText(this.context, message, Toast.LENGTH_LONG);
     } // onError()
 

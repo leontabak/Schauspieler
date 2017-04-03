@@ -10,14 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
-    private static final String TAG = KinoAdapter.class.getSimpleName();
+    private static final String TAG = "KinoAdapter";
+
     private int mNumberOfItems;
-    private MovieQueries movieQueries = MovieQueries.getInstance();
     private MovieDB mMovieDB;
 
     public KinoAdapter(MovieDB movieDB) {
         mMovieDB = movieDB;
-        mNumberOfItems = mMovieDB.size();
+        if( mMovieDB.size() > 0 ) {
+            mNumberOfItems = mMovieDB.size();
+        } // if
+        else {
+            mNumberOfItems = 12; // mMovieDB.size();
+        } // else
     } // KinoAdapter( int )
 
     @Override
@@ -27,15 +32,13 @@ public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttach = false;
         View view = inflater.inflate(layoutID, viewGroup, shouldAttach);
-//        view.setOnClickListener(new ImageClickListener(context));
         KinoViewHolder viewHolder = new KinoViewHolder(context, view, mMovieDB);
         return viewHolder;
     } // onCreateViewHolder( ViewGroup, int )
 
     @Override
     public void onBindViewHolder(KinoViewHolder holder, int position) {
-        Log.d(TAG, "#" + position);
-        holder.bind(position, mMovieDB);
+        holder.bind(position );
     } // OnBindViewHolder( KinoViewHolder, int )
 
     @Override

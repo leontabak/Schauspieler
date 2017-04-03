@@ -89,7 +89,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@color/button"
                 android:padding="6dp"
-                android:text="@string/return_to_catalog"/>
+                android:text="@string/return_button"/>
         </LinearLayout>
 
     </ScrollView>
