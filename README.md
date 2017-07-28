@@ -1,8 +1,25 @@
 # Schauspieler
-To use this project: Add your own key to the themoviedb.org service in the constructor for the MovieQueries class.
+To use this project: Add your own key to the themoviedb.org service in the MoviesDescriptionsTask class. A comment near the
+top of the definition of that class provides instructions.
+
+I have improved the previous version of this program by:
+- using the **popular** and **top_rated** methods of the API provided by themoviedb.org rather than
+the **find** method
+- retrieving the (already sorted) descriptions of popular or top rated movies rather than retrieving
+descriptions of movies that I had selected (I had a list of movies with references to computer science
+and mathematics) and then sorting those movies using my own code and either 
+criteria
+- replaced some string literals with references to strings defined in /res/values/strings.xml
+- placed the code that defines my class that extends AsyncTask in its own file, rather than define it as an inner class
+- removing some now unused code and calls to logging methods
+
+I received recommendations for other improvements that I have not yet made:
+- I looked at the Parcelable interface as recommended but chose not to use it at this time---this version still uses a Serialiable class to pass information through an Intent to an activity
+- I read more about the cost of using Enums but did not completely eliminate my use of them in this version of the program
+- it is possible to programmatically determine how many columns to use in a grid (to fit the size of the screen)---I have not yet experimented with this
 
 This program:
-- Provides information about several movies that contain references to computer science
+- Provides information about top rated and popular movies
 or mathematics 
 - Displays images of the movies' posters in a 2 column grid
 - Sorts the movies by ratings or popularity
@@ -16,7 +33,7 @@ the catalog of movies (the main page)
     - an average of ratings given to the movie by reviewers
     - the date on which the movie was released
     - a URL for fetching an image of the movie's poster
-- Uses the **find** method of the themoviedb.org service (with IMDB identification numbers for the movies)
+- Uses the **popularity** or **top_rated** methods of the themoviedb.org service
 
 In writing this program, I learned:
 - how to use the Picasso image loading API and the themoviedb.org movie database API
