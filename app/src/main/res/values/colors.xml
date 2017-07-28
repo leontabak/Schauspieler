@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mainBackground">#BBEEDD</color>
-    <color name="button">#FFEE88</color>
+    <color name="return_button">#FFEE88</color>
+    <color name="play_button">#CCDDFF</color>
     <color name="overview">#AAEEFF</color>
     <color name="descriptionBackground">#DDEEFF</color>
 </resources>
