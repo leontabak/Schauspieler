@@ -13,6 +13,7 @@ import java.net.URL;
 public class MovieDetails implements Serializable {
     private static final String TAG = "MovieDetails";
 
+    private String mId;
     private String mOriginalTitle;
     private String mOverview;
     private double mVoteAverage;
@@ -20,8 +21,14 @@ public class MovieDetails implements Serializable {
     private String mReleaseDate;
     private String mPosterPath;
 
+    // https://api.themoviedb.org/3/movie/[ID-FROM-MOVIE]/videos?api-key='API-KEY'&
+    // language=en-US
+
     public MovieDetails( JSONObject json ) {
         try {
+            String id = json.getString("id");
+            this.setId(id);
+
             String originalTitle = json.getString( "original_title");
             this.setOriginalTitle( originalTitle );
 
@@ -45,50 +52,57 @@ public class MovieDetails implements Serializable {
         } // catch( JSONException )
     } // MovieDetails( URL )
 
+    public String getId() {
+        return mId;
+    } // getId()
+
+    public void setId(String id) {
+        mId = id;
+    } // setId( String )
+
     public String getOriginalTitle() {
         return mOriginalTitle;
     } // getOriginalTitle()
-
-    public String getOverview() {
-        return mOverview;
-    } // getOverview()
-
-    public double getVoteAverage() {
-        return mVoteAverage;
-    } // getVoteAverage()
-
-    public double getPopularity() {
-        return mPopularity;
-    } // getPopularity()
-
-    public String getReleaseDate() {
-        return mReleaseDate;
-    } // getReleaseDate()
-
-    public String getPosterPath() {
-        return mPosterPath;
-    } // getPosterPath()
-
 
     public void setOriginalTitle(String originalTitle) {
         mOriginalTitle = originalTitle;
     } // setOriginalTitle( String )
 
+    public String getOverview() {
+        return mOverview;
+    } // getOverview()
+
     public void setOverview(String overview) {
         mOverview = overview;
     } // setOverview( String )
+
+    public double getVoteAverage() {
+        return mVoteAverage;
+    } // getVoteAverage()
 
     public void setVoteAverage(double voteAverage) {
         mVoteAverage = voteAverage;
     } // setVoteAverage( double )
 
+    public double getPopularity() {
+        return mPopularity;
+    } // getPopularity()
+
     public void setPopularity(double popularity) {
         mPopularity = popularity;
     } // setPopularity( double )
 
+    public String getReleaseDate() {
+        return mReleaseDate;
+    } // getReleaseDate()
+
     public void setReleaseDate(String releaseDate) {
         mReleaseDate = releaseDate;
     } // setReleaseDate( String )
+
+    public String getPosterPath() {
+        return mPosterPath;
+    } // getPosterPath()
 
     public void setPosterPath(String posterPath) {
         mPosterPath = posterPath;

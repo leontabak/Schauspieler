@@ -6,5 +6,7 @@
     <string name="return_to_catalog">Return to catalog</string>
     <string name="picasso_error">Effort to load image failed. Try again later.</string>
     <string name="return_button">Return to catalog</string>
-    <string name="play_button">Play Trailer</string>
+    <string name="play_button">Play trailer</string>
+    <string name="favorite">Add to favorites</string>
+    <string name="unfavorite">Remove from favorites</string>
 </resources>

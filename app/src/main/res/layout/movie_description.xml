@@ -28,6 +28,37 @@
                 android:paddingRight="12dp"
                 android:paddingTop="12dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/favorite"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+
+                    android:background="@color/favorite"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingTop="4dp"
+                    android:text="@string/favorite"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""/>
+
+            </LinearLayout>
+
+
             <Button
                 android:id="@+id/play_trailer"
                 android:layout_width="wrap_content"
@@ -39,6 +70,15 @@
                 android:background="@color/play_button"
                 android:padding="6dp"
                 android:text="@string/play_button"/>
+
+            <TextView
+                android:id="@+id/movie_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:text="ID"/>
 
             <TextView
                 android:id="@+id/original_title"

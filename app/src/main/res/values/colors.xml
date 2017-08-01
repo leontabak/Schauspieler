@@ -8,4 +8,6 @@
     <color name="play_button">#CCDDFF</color>
     <color name="overview">#AAEEFF</color>
     <color name="descriptionBackground">#DDEEFF</color>
+    <color name="favorite">#88FFAA</color>
+    <color name="unfavorite">#22FF66</color>
 </resources>

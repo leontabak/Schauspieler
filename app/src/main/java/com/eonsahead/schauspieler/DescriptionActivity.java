@@ -17,6 +17,9 @@ import com.squareup.picasso.Picasso;
 public class DescriptionActivity extends AppCompatActivity {
     private static final String INTENT_ID = "DETAILS";
     private Picasso mPicasso;
+    private Button mFavoriteButton;
+    private Button mPlayButton;
+    private Button mReturnButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,9 @@ public class DescriptionActivity extends AppCompatActivity {
                 .resize(384, 576)
                 .into(imageView, new PicassoErrorHandler(this));
 
+        TextView movieId = (TextView) this.findViewById(R.id.movie_id);
+        movieId.setText(details.getId());
+
         TextView originalTitle = (TextView) this.findViewById(R.id.original_title);
         originalTitle.setText(details.getOriginalTitle());
 
@@ -54,7 +60,7 @@ public class DescriptionActivity extends AppCompatActivity {
         overview.setText(details.getOverview());
 
         TextView releaseDate = (TextView) this.findViewById(R.id.release_date);
-        releaseDate.setText( "Release date: " + details.getReleaseDate());
+        releaseDate.setText("Release date: " + details.getReleaseDate());
 
         TextView popularity = (TextView) this.findViewById(R.id.popularity);
         popularity.setText("Popularity = " + Double.toString(details.getPopularity()));
@@ -62,13 +68,28 @@ public class DescriptionActivity extends AppCompatActivity {
         TextView rating = (TextView) this.findViewById(R.id.rating);
         rating.setText("Rating (votes) = " + Double.toString(details.getVoteAverage()));
 
-        Button button = (Button) this.findViewById(R.id.return_to_catalog);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DescriptionActivity.this.finish();
-            } // onClickView( View )
-        });
+        ButtonListener buttonListener = new ButtonListener(this);
+        mReturnButton = (Button) this.findViewById(R.id.return_to_catalog);
+        mReturnButton.setOnClickListener(buttonListener);
+
+        mPlayButton = (Button) this.findViewById(R.id.play_trailer);
+        mPlayButton.setOnClickListener(buttonListener);
+
+        mFavoriteButton = (Button) this.findViewById(R.id.favorite);
+        mFavoriteButton.setOnClickListener(buttonListener);
 
     } // onCreate( Bundle )
+
+    public Button getFavoriteButton() {
+        return mFavoriteButton;
+    } // getFavoriteButton()
+
+    public Button getPlayButton() {
+        return mPlayButton;
+    } // getPlayButton()
+
+    public Button getReturnButton() {
+        return mReturnButton;
+    } // getReturnButton()
+
 } // DescriptionActivity
