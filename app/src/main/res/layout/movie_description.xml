@@ -31,10 +31,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="@dimen/buttonMarginBottom"
+                android:layout_marginLeft="@dimen/buttonMarginLeft"
+                android:layout_marginRight="@dimen/buttonMarginRight"
+                android:layout_marginTop="@dimen/buttonMarginTop"
                 android:orientation="horizontal">
 
                 <Button
@@ -44,10 +44,10 @@
                     android:layout_weight="2"
 
                     android:background="@color/favorite"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:paddingTop="4dp"
+                    android:paddingBottom="@dimen/buttonPaddingBottom"
+                    android:paddingLeft="@dimen/buttonPaddingLeft"
+                    android:paddingRight="@dimen/buttonPaddingRight"
+                    android:paddingTop="@dimen/buttonPaddingTop"
                     android:text="@string/favorite"/>
 
                 <TextView
@@ -58,18 +58,63 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/buttonMarginBottom"
+                android:layout_marginLeft="@dimen/buttonMarginLeft"
+                android:layout_marginRight="@dimen/buttonMarginRight"
+                android:layout_marginTop="@dimen/buttonMarginTop"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/play_trailer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="6dp"
-                android:background="@color/play_button"
-                android:padding="6dp"
-                android:text="@string/play_button"/>
+                <Button
+                    android:id="@+id/read_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@color/play_button"
+                    android:paddingBottom="@dimen/buttonPaddingBottom"
+                    android:paddingLeft="@dimen/buttonPaddingLeft"
+                    android:paddingRight="@dimen/buttonPaddingRight"
+                    android:paddingTop="@dimen/buttonPaddingTop"
+                    android:text="@string/read_review"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/buttonMarginBottom"
+                android:layout_marginLeft="@dimen/buttonMarginLeft"
+                android:layout_marginRight="@dimen/buttonMarginRight"
+                android:layout_marginTop="@dimen/buttonMarginTop"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/play_trailer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@color/play_button"
+                    android:paddingBottom="@dimen/buttonPaddingBottom"
+                    android:paddingLeft="@dimen/buttonPaddingLeft"
+                    android:paddingRight="@dimen/buttonPaddingRight"
+                    android:paddingTop="@dimen/buttonPaddingTop"
+                    android:text="@string/play_button"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/movie_id"
@@ -84,10 +129,16 @@
                 android:id="@+id/original_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="@dimen/titleMarginBottom"
+                android:layout_marginLeft="@dimen/titleMarginLeft"
+                android:layout_marginRight="@dimen/titleMarginRight"
+                android:layout_marginTop="@dimen/titleMarginTop"
+                android:paddingBottom="@dimen/titlePaddingBottom"
+                android:paddingLeft="@dimen/titlePaddingLeft"
+                android:paddingRight="@dimen/titlePaddingRight"
+                android:paddingTop="@dimen/titlePaddingTop"
                 android:text="TITLE"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -109,39 +160,59 @@
                 android:id="@+id/release_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="OVERVIEW"/>
+                android:layout_marginBottom="@dimen/dataBoxMarginBottom"
+                android:layout_marginLeft="@dimen/dataBoxMarginLeft"
+                android:layout_marginRight="@dimen/dataBoxMarginRight"
+                android:layout_marginTop="@dimen/dataBoxMarginTop"
+                android:paddingBottom="@dimen/dataBoxPaddingBottom"
+                android:paddingLeft="@dimen/dataBoxPaddingLeft"
+                android:paddingRight="@dimen/dataBoxPaddingRight"
+                android:paddingTop="@dimen/dataBoxPaddingTop"
+                android:text="00/00/0000"/>
 
             <TextView
                 android:id="@+id/popularity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
+
                 android:text="VERY POPULAR"/>
 
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
+
                 android:text="HIGHLY RATED"/>
 
-            <Button
-                android:id="@+id/return_to_catalog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:background="@color/return_button"
-                android:padding="6dp"
-                android:text="@string/return_button"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/buttonMarginBottom"
+                android:layout_marginLeft="@dimen/buttonMarginLeft"
+                android:layout_marginRight="@dimen/buttonMarginRight"
+                android:layout_marginTop="@dimen/buttonMarginTop"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/return_to_catalog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@color/return_button"
+                    android:paddingBottom="@dimen/buttonPaddingBottom"
+                    android:paddingLeft="@dimen/buttonPaddingLeft"
+                    android:paddingRight="@dimen/buttonPaddingRight"
+                    android:paddingTop="@dimen/buttonPaddingTop"
+                    android:text="@string/return_button"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

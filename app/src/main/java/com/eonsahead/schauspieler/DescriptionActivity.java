@@ -16,6 +16,10 @@ import com.squareup.picasso.Picasso;
 
 public class DescriptionActivity extends AppCompatActivity {
     private static final String INTENT_ID = "DETAILS";
+    private MovieDetails mDetails;
+    private int mMovieId;
+    private String mPosterPath;
+
     private Picasso mPicasso;
     private Button mFavoriteButton;
     private Button mPlayButton;
@@ -38,35 +42,38 @@ public class DescriptionActivity extends AppCompatActivity {
         mPicasso.with(this).setLoggingEnabled(true);
 
         Intent intent = getIntent();
-        MovieDetails details = (MovieDetails) intent.getExtras().getSerializable(INTENT_ID);
+        mDetails = (MovieDetails) intent.getExtras().getSerializable(INTENT_ID);
 
-        String url = details.getPosterPath();
+        mPosterPath = mDetails.getPosterPath();
+        mMovieId = mDetails.getId();
+
+        (new TrailerAndReviewsTask()).execute(this);
 
         ImageView imageView = (ImageView) this.findViewById(R.id.thumbnail);
 
-        mPicasso.with(this).load(url)
+        mPicasso.with(this).load(mPosterPath)
                 .placeholder(R.drawable.arboretum04)
                 .error(R.drawable.arboretum08)
                 .resize(384, 576)
                 .into(imageView, new PicassoErrorHandler(this));
 
         TextView movieId = (TextView) this.findViewById(R.id.movie_id);
-        movieId.setText(details.getId());
+        movieId.setText(Integer.toString(mDetails.getId()));
 
         TextView originalTitle = (TextView) this.findViewById(R.id.original_title);
-        originalTitle.setText(details.getOriginalTitle());
+        originalTitle.setText(mDetails.getOriginalTitle());
 
         TextView overview = (TextView) this.findViewById(R.id.overview);
-        overview.setText(details.getOverview());
+        overview.setText(mDetails.getOverview());
 
         TextView releaseDate = (TextView) this.findViewById(R.id.release_date);
-        releaseDate.setText("Release date: " + details.getReleaseDate());
+        releaseDate.setText("Release date: " + mDetails.getReleaseDate());
 
         TextView popularity = (TextView) this.findViewById(R.id.popularity);
-        popularity.setText("Popularity = " + Double.toString(details.getPopularity()));
+        popularity.setText("Popularity = " + Double.toString(mDetails.getPopularity()));
 
         TextView rating = (TextView) this.findViewById(R.id.rating);
-        rating.setText("Rating (votes) = " + Double.toString(details.getVoteAverage()));
+        rating.setText("Rating (votes) = " + Double.toString(mDetails.getVoteAverage()));
 
         ButtonListener buttonListener = new ButtonListener(this);
         mReturnButton = (Button) this.findViewById(R.id.return_to_catalog);
@@ -79,6 +86,14 @@ public class DescriptionActivity extends AppCompatActivity {
         mFavoriteButton.setOnClickListener(buttonListener);
 
     } // onCreate( Bundle )
+
+    public MovieDetails getDetails() {
+        return mDetails;
+    } // getDetails()
+
+    public int getMoveId() {
+        return mMovieId;
+    } // getMovieId()
 
     public Button getFavoriteButton() {
         return mFavoriteButton;

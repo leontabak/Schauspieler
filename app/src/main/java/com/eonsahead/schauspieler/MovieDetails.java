@@ -9,24 +9,26 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDetails implements Serializable {
     private static final String TAG = "MovieDetails";
 
-    private String mId;
+    private int mId;
     private String mOriginalTitle;
     private String mOverview;
     private double mVoteAverage;
     private double mPopularity;
     private String mReleaseDate;
     private String mPosterPath;
+    private List<Review> mReviews;
+    private List<Trailer> mTrailers;
 
-    // https://api.themoviedb.org/3/movie/[ID-FROM-MOVIE]/videos?api-key='API-KEY'&
-    // language=en-US
 
     public MovieDetails( JSONObject json ) {
         try {
-            String id = json.getString("id");
+            int id = json.getInt("id");
             this.setId(id);
 
             String originalTitle = json.getString( "original_title");
@@ -46,17 +48,20 @@ public class MovieDetails implements Serializable {
 
             String posterPath = makePosterPath(json.getString( "poster_path" ), ImageSizes.w500);
             this.setPosterPath( posterPath );
+
+            this.mReviews = new ArrayList<>();
+            this.mTrailers = new ArrayList<>();
         } // try
         catch( JSONException e ) {
             e.printStackTrace();
         } // catch( JSONException )
     } // MovieDetails( URL )
 
-    public String getId() {
+    public int getId() {
         return mId;
     } // getId()
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     } // setId( String )
 
@@ -107,6 +112,22 @@ public class MovieDetails implements Serializable {
     public void setPosterPath(String posterPath) {
         mPosterPath = posterPath;
     } // setPosterPath( String )
+
+    public List<Review> getReviews() {
+        return mReviews;
+    } // getReviews()
+
+    public void addReview(Review review) {
+        mReviews.add(review);
+    } // addReview( Review )
+
+    public List<Trailer> getTrailers() {
+        return mTrailers;
+    } // getTrailers()
+
+    public void addTrailer(Trailer trailer) {
+        mTrailers.add(trailer);
+    } // addTrailer( Trailer )
 
     private String makePosterPath( String fileName, ImageSizes size ) {
         return "http://image.tmdb.org/t/p/" + size.getSizeSpecifier() + "/" + fileName;

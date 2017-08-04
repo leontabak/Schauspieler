@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- specifications for buttons -->
+    <dimen name="buttonPaddingLeft">4dp</dimen>
+    <dimen name="buttonPaddingRight">4dp</dimen>
+    <dimen name="buttonPaddingBottom">4dp</dimen>
+    <dimen name="buttonPaddingTop">4dp</dimen>
+
+    <dimen name="buttonMarginLeft">12dp</dimen>
+    <dimen name="buttonMarginRight">12dp</dimen>
+    <dimen name="buttonMarginBottom">12dp</dimen>
+    <dimen name="buttonMarginTop">12dp</dimen>
+
+    <!-- specifications for data boxes -->
+    <dimen name="dataBoxPaddingLeft">4dp</dimen>
+    <dimen name="dataBoxPaddingRight">4dp</dimen>
+    <dimen name="dataBoxPaddingBottom">4dp</dimen>
+    <dimen name="dataBoxPaddingTop">4dp</dimen>
+
+    <dimen name="dataBoxMarginLeft">12dp</dimen>
+    <dimen name="dataBoxMarginRight">12dp</dimen>
+    <dimen name="dataBoxMarginBottom">12dp</dimen>
+    <dimen name="dataBoxMarginTop">12dp</dimen>
+
+    <!-- specifications for title -->
+    <dimen name="titlePaddingLeft">4dp</dimen>
+    <dimen name="titlePaddingRight">4dp</dimen>
+    <dimen name="titlePaddingBottom">4dp</dimen>
+    <dimen name="titlePaddingTop">4dp</dimen>
+
+    <dimen name="titleMarginLeft">12dp</dimen>
+    <dimen name="titleMarginRight">12dp</dimen>
+    <dimen name="titleMarginBottom">12dp</dimen>
+    <dimen name="titleMarginTop">12dp</dimen>
+
+</resources>

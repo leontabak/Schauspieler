@@ -78,7 +78,7 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
     @Override
     protected void onPostExecute(MainActivity mainActivity) {
         mainActivity.refresh();
-    } // onPostExecute( List<MovieDetails> )
+    } // onPostExecute( MainActivity )
 
     private final URL makeURL(SortCriterion criterion) {
 
