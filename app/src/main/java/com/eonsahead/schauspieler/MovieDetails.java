@@ -16,6 +16,9 @@ public class MovieDetails implements Serializable {
     private static final String TAG = "MovieDetails";
 
     private int mId;
+    private boolean mIsFavorite;
+    private boolean mIsPopular;
+    private boolean mIsHighlyRated;
     private String mOriginalTitle;
     private String mOverview;
     private double mVoteAverage;
@@ -30,6 +33,10 @@ public class MovieDetails implements Serializable {
         try {
             int id = json.getInt("id");
             this.setId(id);
+
+            this.clearIsFavorite();
+            this.clearIsPopular();
+            this.clearIsHighlyRated();
 
             String originalTitle = json.getString( "original_title");
             this.setOriginalTitle( originalTitle );
@@ -64,6 +71,46 @@ public class MovieDetails implements Serializable {
     public void setId(int id) {
         mId = id;
     } // setId( String )
+
+    public boolean getIsFavorite() {
+        return mIsFavorite;
+    } // getIsFavorite()
+
+    public void clearIsFavorite() {
+        mIsFavorite = false;
+    } // clearIsFavorite()
+
+    public void setIsFavorite() {
+        mIsFavorite = true;
+    } // setIsFavorite()
+
+    public void toggleIsFavorite() {
+        mIsFavorite = !mIsFavorite;
+    } // toggleIsFavorite()
+
+    public boolean getIsPopular() {
+        return mIsPopular;
+    } // getIsPopular()
+
+    public void clearIsPopular() {
+        mIsPopular = false;
+    } // clearIsPopular()
+
+    public void setIsPopular() {
+        mIsPopular = true;
+    } // setIsPopular()
+
+    public boolean getIsHighlyRated() {
+        return mIsHighlyRated;
+    } // getIsHighlyRated()
+
+    public void clearIsHighlyRated() {
+        mIsHighlyRated = false;
+    } // clearIsHighlyRated()
+
+    public void setIsHighlyRated() {
+        mIsHighlyRated = true;
+    } // setIsHighlyRated()
 
     public String getOriginalTitle() {
         return mOriginalTitle;

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         mMovieDB = new MovieDB();
 
-        mSortCriterion = SortCriterion.VOTES;
+        mSortCriterion = SortCriterion.RATING;
         (new MoviesDescriptionsTask()).execute( this );
 
         mMovies = (RecyclerView) this.findViewById(R.id.favorite_movies);
@@ -67,21 +67,23 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        String popularity = getString(R.string.byPopularity);
-        String rating = getString(R.string.byRating);
-
-        if (id == R.id.sortingCriterion) {
-            if (menuItem.getTitle().equals(rating)) {
-                menuItem.setTitle(popularity);
+        switch (id) {
+            case R.id.byFavorite:
+                setSortCriterion(SortCriterion.FAVORITE);
+                (new MoviesDescriptionsTask()).execute(this);
+                break;
+            case R.id.byPopularity:
                 setSortCriterion(SortCriterion.POPULARITY);
-                (new MoviesDescriptionsTask()).execute( this );
-            } // if
-            else if (menuItem.getTitle().equals(popularity)) {
-                menuItem.setTitle(rating);
-                setSortCriterion(SortCriterion.VOTES);
-                (new MoviesDescriptionsTask()).execute( this );
-            } // else if
-        } // if
+                (new MoviesDescriptionsTask()).execute(this);
+                break;
+            case R.id.byRating:
+                setSortCriterion(SortCriterion.RATING);
+                (new MoviesDescriptionsTask()).execute(this);
+                break;
+            default:
+                break;
+        } // switch
+
         return super.onOptionsItemSelected(menuItem);
     } // onOptionsItemSelected( MenuItem )
 

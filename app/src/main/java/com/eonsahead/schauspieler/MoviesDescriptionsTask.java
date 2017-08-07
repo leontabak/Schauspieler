@@ -42,6 +42,8 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
             query(movieId, VIDEOS);
         } // for
 
+//        MovieDatabaseHelper helper = new MovieDatabaseHelper( mainActivity );
+
         return mainActivity;
     } // doInBackground()
 
@@ -52,6 +54,8 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
     private void query(SortCriterion sortCriterion) {
         URL url = makeURL(sortCriterion);
+
+        Log.d(TAG, url.toString());
 
         HttpURLConnection connection = null;
         try {
@@ -96,7 +100,7 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
     private void query(int movieId, String dataType) {
         URL url = makeURL(movieId, dataType);
-        Log.d(TAG, "url = " + url);
+//        Log.d(TAG, "url = " + url.toString());
 
         HttpURLConnection connection = null;
         try {
@@ -126,8 +130,8 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
                         Review review = new Review(author, content);
                         mMovieDetails.addReview(review);
 
-                        Log.d(TAG, "author = " + author);
-                        Log.d(TAG, "content = " + content);
+//                        Log.d(TAG, "author = " + author);
+//                        Log.d(TAG, "content = " + content);
                     } // if
                     else if (dataType.equals(VIDEOS)) {
                         // fetch a trailer or featurette
@@ -138,9 +142,9 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
                         Trailer trailer = new Trailer(name, key, type);
                         mMovieDetails.addTrailer(trailer);
 
-                        Log.d(TAG, "name = " + name);
-                        Log.d(TAG, "key = " + key);
-                        Log.d(TAG, "type = " + type);
+//                        Log.d(TAG, "name = " + name);
+//                        Log.d(TAG, "key = " + key);
+//                        Log.d(TAG, "type = " + type);
                     } // else if
 
                 } // for
@@ -163,10 +167,16 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
         String typeOfSearch = "";
         switch (criterion) {
+            case FAVORITE:
+                // value should never be FAVORITE
+                // there is no corresponding URL
+                // let's assume user wants POPULARITY
+                typeOfSearch = "popular";
+                break;
             case POPULARITY:
                 typeOfSearch = "popular";
                 break;
-            case VOTES:
+            case RATING:
                 typeOfSearch = "top_rated";
                 break;
             default:

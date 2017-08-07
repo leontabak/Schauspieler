@@ -1,6 +1,7 @@
 package com.eonsahead.schauspieler;
 
 public enum SortCriterion {
+    FAVORITE,
     POPULARITY,
-    VOTES;
+    RATING;
 } // SortCriterion

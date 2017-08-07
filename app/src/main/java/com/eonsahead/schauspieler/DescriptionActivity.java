@@ -47,8 +47,6 @@ public class DescriptionActivity extends AppCompatActivity {
         mPosterPath = mDetails.getPosterPath();
         mMovieId = mDetails.getId();
 
-        (new TrailerAndReviewsTask()).execute(this);
-
         ImageView imageView = (ImageView) this.findViewById(R.id.thumbnail);
 
         mPicasso.with(this).load(mPosterPath)
