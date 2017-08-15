@@ -3,6 +3,7 @@ package com.eonsahead.schauspieler;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import android.widget.Toast;
  */
 
 public class ButtonListener implements OnClickListener {
+    private static final String TAG = "ButtonListener";
+
     private DescriptionActivity activity;
     private boolean favorite;
 
@@ -47,16 +50,22 @@ public class ButtonListener implements OnClickListener {
                 break;
             case R.id.favorite:
                 Button button = this.activity.getFavoriteButton();
-                if (favorite) {
-                    button.setText(R.string.unfavorite);
-                    button.setBackgroundResource(R.color.unfavorite);
+                Log.d(TAG, "(1) is favorite? " + activity.getDetails().getIsFavorite());
+                if (activity.getDetails().getIsFavorite()) {
+                    Log.d(TAG, "clearing");
+                    activity.getDetails().clearIsFavorite();
+                    button.setText(R.string.favorite);
+                    button.setBackgroundResource(R.color.favorite);
                     favorite = false;
                 } // if
                 else {
-                    button.setText(R.string.favorite);
-                    button.setBackgroundResource(R.color.favorite);
+                    Log.d(TAG, "setting");
+                    activity.getDetails().setIsFavorite();
+                    button.setText(R.string.unfavorite);
+                    button.setBackgroundResource(R.color.unfavorite);
                     favorite = true;
-                }
+                } // else
+                Log.d(TAG, "(2) is favorite? " + activity.getDetails().getIsFavorite());
                 break;
             default:
                 break;

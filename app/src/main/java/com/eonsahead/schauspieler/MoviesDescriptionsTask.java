@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Scanner;
 
 public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainActivity> {
@@ -32,17 +31,31 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
     protected MainActivity doInBackground(MainActivity... params) {
         MainActivity mainActivity = params[0];
         mMovieDB = mainActivity.getMovieDB();
-        SortCriterion sortCriterion = mainActivity.getSortCriterion();
+//        SortCriterion sortCriterion = mainActivity.getSortCriterion();
 
-        query(sortCriterion);
+        if (Mode.ONLINE) {
+            Log.d(TAG, "first call to query");
+            query(SortCriterion.POPULARITY);
+            Log.d(TAG, "second call to query");
+            query(SortCriterion.RATING);
 
-        for (MovieDetails details : mMovieDB.getRecords()) {
-            int movieId = details.getId();
-            query(movieId, REVIEWS);
-            query(movieId, VIDEOS);
-        } // for
+            for (MovieDetails details : mMovieDB.getRecords()) {
+                int movieId = details.getId();
+                query(movieId, REVIEWS);
+                query(movieId, VIDEOS);
+            } // for
+        } // if
+        else {
+            generateData(12, SortCriterion.POPULARITY);
+            generateData(12, SortCriterion.RATING);
+        } // else
 
-//        MovieDatabaseHelper helper = new MovieDatabaseHelper( mainActivity );
+
+        MovieDatabaseHelper helper = new MovieDatabaseHelper(mainActivity);
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        for (MovieDetails details : mMovieDB.getRecords()) {
+//            helper.addMovie(db, details);
+//        } // for
 
         return mainActivity;
     } // doInBackground()
@@ -51,6 +64,22 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
     protected void onPostExecute(MainActivity mainActivity) {
         mainActivity.refresh();
     } // onPostExecute( MainActivity )
+
+    private void generateData(int movieCount, SortCriterion sortCriterion) {
+        for (int i = 0; i < movieCount; i++) {
+            MovieDetails details = new MovieDetails();
+            mMovieDB.addRecord(details);
+        } // for
+    } // generateData( int, SortCriterion )
+
+    private void generateData(int movieId, String dataType) {
+        if (dataType.equals(REVIEWS)) {
+
+        } // if
+        else if (dataType.equals(VIDEOS)) {
+
+        } // else if
+    } // generateData( int, String )
 
     private void query(SortCriterion sortCriterion) {
         URL url = makeURL(sortCriterion);
@@ -72,12 +101,14 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
             scanner.close();
 
             try {
-                mMovieDB.clear();
+//                mMovieDB.clear();
                 JSONObject object = new JSONObject(text.toString());
                 JSONArray array = object.getJSONArray("results");
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject movie = array.getJSONObject(i);
-                    mMovieDetails = new MovieDetails(movie);
+                    mMovieDetails = new MovieDetails(movie, sortCriterion);
+
+                    Log.d(TAG, mMovieDetails.getOriginalTitle() + " " + sortCriterion.toString());
 
                     mMovieDB.addRecord(mMovieDetails);
 

@@ -1,6 +1,8 @@
 package com.eonsahead.schauspieler;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
     private String mAuthor;
     private String mContent;
 

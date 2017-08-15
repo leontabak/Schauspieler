@@ -11,4 +11,7 @@
     <string name="read_review">Read review</string>
     <string name="favorite">Add to favorites</string>
     <string name="unfavorite">Remove from favorites</string>
+    <string name="releaseDate">Released on %1$s</string>
+    <string name="popularityReport">Popularity = %1$6.4f</string>
+    <string name="ratingsReport">Rating = %1$6.4f</string>
 </resources>

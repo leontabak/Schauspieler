@@ -1,7 +1,9 @@
 package com.eonsahead.schauspieler;
 
 
-public class Trailer {
+import java.io.Serializable;
+
+public class Trailer implements Serializable {
     private String mName;
     private String mKey;
     private String mType;

@@ -16,7 +16,11 @@ public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
     private MovieDB mMovieDB;
 
     public KinoAdapter(MovieDB movieDB) {
-        mMovieDB = movieDB;
+        mMovieDB = new MovieDB();
+        for (MovieDetails details : movieDB.getRecords()) {
+            mMovieDB.addRecord(details);
+        } // for
+
         if( mMovieDB.size() > 0 ) {
             mNumberOfItems = mMovieDB.size();
         } // if
@@ -24,6 +28,16 @@ public class KinoAdapter extends RecyclerView.Adapter<KinoViewHolder> {
             mNumberOfItems = 12; // mMovieDB.size();
         } // else
     } // KinoAdapter( int )
+
+    public void changeData(MovieDB movieDB) {
+        mMovieDB.clear();
+        for (MovieDetails details : movieDB.getRecords()) {
+            mMovieDB.addRecord(details);
+        } // for
+
+        mNumberOfItems = mMovieDB.size();
+        this.notifyDataSetChanged();
+    } // changeData( MovieDB )
 
     @Override
     public KinoViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {

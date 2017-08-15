@@ -14,6 +14,7 @@ import java.util.List;
 
 public class MovieDetails implements Serializable {
     private static final String TAG = "MovieDetails";
+    private static int count = 0;
 
     private int mId;
     private boolean mIsFavorite;
@@ -29,7 +30,38 @@ public class MovieDetails implements Serializable {
     private List<Trailer> mTrailers;
 
 
-    public MovieDetails( JSONObject json ) {
+    public MovieDetails() {
+        mId = count;
+        mIsFavorite = false;
+
+        if (Math.random() < 0.5) {
+            mIsPopular = true;
+            mIsHighlyRated = false;
+        } // if
+        else {
+            mIsPopular = false;
+            mIsHighlyRated = true;
+        } // else
+
+        mOriginalTitle = DataGenerator.word(mId, 12);
+        mOverview = DataGenerator.paragraph(mId, 5, 60);
+        mVoteAverage = Math.random();
+        mPopularity = Math.random();
+        mReleaseDate = "20 July 1969";
+        mPosterPath = "";
+
+        mReviews = new ArrayList<>();
+        Review review = new Review(DataGenerator.word(mId, 12), DataGenerator.paragraph(mId, 5, 96));
+        mReviews.add(review);
+
+        mTrailers = new ArrayList<>();
+        Trailer trailer = new Trailer(DataGenerator.word(mId, 12), DataGenerator.word(mId, 8),
+                DataGenerator.word(mId, 10));
+        mTrailers.add(trailer);
+        count++;
+    } // MovieDetails()
+
+    public MovieDetails(JSONObject json, SortCriterion sortCriterion) {
         try {
             int id = json.getInt("id");
             this.setId(id);
@@ -37,6 +69,13 @@ public class MovieDetails implements Serializable {
             this.clearIsFavorite();
             this.clearIsPopular();
             this.clearIsHighlyRated();
+
+            if (sortCriterion == SortCriterion.POPULARITY) {
+                this.setIsPopular();
+            } // if
+            else if (sortCriterion == SortCriterion.RATING) {
+                this.setIsHighlyRated();
+            } // else if
 
             String originalTitle = json.getString( "original_title");
             this.setOriginalTitle( originalTitle );
@@ -55,6 +94,8 @@ public class MovieDetails implements Serializable {
 
             String posterPath = makePosterPath(json.getString( "poster_path" ), ImageSizes.w500);
             this.setPosterPath( posterPath );
+
+            Log.d(TAG, "create record for " + this.getOriginalTitle() + " " + sortCriterion.toString());
 
             this.mReviews = new ArrayList<>();
             this.mTrailers = new ArrayList<>();
@@ -179,4 +220,6 @@ public class MovieDetails implements Serializable {
     private String makePosterPath( String fileName, ImageSizes size ) {
         return "http://image.tmdb.org/t/p/" + size.getSizeSpecifier() + "/" + fileName;
     } // makePosterPath( String, String )
+
+
 } // MovieDetails

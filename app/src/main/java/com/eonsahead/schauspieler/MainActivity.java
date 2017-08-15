@@ -25,22 +25,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSortCriterion = SortCriterion.POPULARITY;
+
         mMovieDB = new MovieDB();
 
-        mSortCriterion = SortCriterion.RATING;
         (new MoviesDescriptionsTask()).execute( this );
 
-        mMovies = (RecyclerView) this.findViewById(R.id.favorite_movies);
+        mMovies = (RecyclerView) this.findViewById(R.id.selected_movies);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mMovies.setLayoutManager(layoutManager);
 
         mMovies.setHasFixedSize(true);
 
-        refresh();
+        mAdapter = new KinoAdapter(mMovieDB.select(mSortCriterion));
+        mMovies.setAdapter(mAdapter);
     } // onCreate( Bundle )
 
     public MovieDB getMovieDB() {
+        Log.d(TAG, "return mMovieDB");
         return mMovieDB;
     } // getMovieDB()
 
@@ -53,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     } // setSortCriterion( SortCriterion )
 
     public void refresh() {
-        mAdapter = new KinoAdapter(mMovieDB);
-        mMovies.setAdapter(mAdapter);
+        mAdapter.changeData(mMovieDB.select(mSortCriterion));
+//        mMovies.setAdapter(mAdapter);
     } // refresh()
 
     @Override
@@ -70,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.byFavorite:
                 setSortCriterion(SortCriterion.FAVORITE);
-                (new MoviesDescriptionsTask()).execute(this);
+                this.refresh();
                 break;
             case R.id.byPopularity:
                 setSortCriterion(SortCriterion.POPULARITY);
-                (new MoviesDescriptionsTask()).execute(this);
+                this.refresh();
                 break;
             case R.id.byRating:
                 setSortCriterion(SortCriterion.RATING);
-                (new MoviesDescriptionsTask()).execute(this);
+                this.refresh();
                 break;
             default:
                 break;
