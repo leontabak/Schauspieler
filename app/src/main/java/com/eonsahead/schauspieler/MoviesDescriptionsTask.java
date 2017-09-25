@@ -1,6 +1,9 @@
 package com.eonsahead.schauspieler;
 
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -39,11 +42,11 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
             Log.d(TAG, "second call to query");
             query(SortCriterion.RATING);
 
-            for (MovieDetails details : mMovieDB.getRecords()) {
-                int movieId = details.getId();
-                query(movieId, REVIEWS);
-                query(movieId, VIDEOS);
-            } // for
+//            for (MovieDetails details : mMovieDB.getRecords()) {
+//                int movieId = details.getId();
+//                query(movieId, REVIEWS);
+//                query(movieId, VIDEOS);
+//            } // for
         } // if
         else {
             generateData(12, SortCriterion.POPULARITY);
@@ -51,11 +54,47 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
         } // else
 
 
+        Log.d(TAG, "MoviesDescriptionsTask (0)");
         MovieDatabaseHelper helper = new MovieDatabaseHelper(mainActivity);
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        for (MovieDetails details : mMovieDB.getRecords()) {
-//            helper.addMovie(db, details);
-//        } // for
+        Log.d(TAG, "MoviesDescriptionTask (1)");
+        try {
+            Log.d(TAG, "MoviesDescriptionTask (2)");
+            SQLiteDatabase db = helper.getWritableDatabase();
+            Log.d(TAG, "MoviesDescriptionTask (3)");
+            helper.onCreate(db);
+            Log.d(TAG, "MoviesDescriptionTask (4)");
+            for (MovieDetails details : mMovieDB.getRecords()) {
+                Log.d(TAG, "MoviesDescriptionTask (4-add)");
+                helper.addMovie(db, details);
+            } // for
+
+//            MoviesContentProvider cp = new MoviesContentProvider();
+//
+//            String[] columns = {
+//                    MoviesContract.Details._ID,
+//                    MoviesContract.Details.COLUMN_NAME_ORIGINAL_TITLE};
+//            Cursor cursor = db.query(MoviesContract.Details.TABLE_NAME, columns, null, null, null, null, null, null);
+//            while (cursor.moveToNext()) {
+//                String id = cursor.getString(0);
+//                String title = cursor.getString(1);
+//                Log.d(TAG, id + " " + title + " (4-cursor)");
+//            } // while
+
+
+            db.close();
+
+            Log.d(TAG, "(5)");
+            Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
+            Log.d(TAG, "(6)");
+//            while( cursor.moveToNext() ) {
+//                String id = cursor.getString(0);
+//                String title = cursor.getString(1);
+//                Log.d(TAG, id + " " + title + " (4-ContentProvider");
+//            } // while
+        } // try
+        catch (SQLiteException e) {
+            Log.d(TAG, "MoviesDescriptionTask SQLiteException " + e.getMessage());
+        } // catch( SQLiteException )
 
         return mainActivity;
     } // doInBackground()

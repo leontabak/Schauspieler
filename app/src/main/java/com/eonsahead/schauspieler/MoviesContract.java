@@ -1,8 +1,25 @@
 package com.eonsahead.schauspieler;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class MoviesContract {
+
+    public static final String AUTHORITY = "com.eonsahead.schauspieler";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+
+    public static final String PATH_DETAILS = "details";
+    public static final String PATH_DETAILS_FAVORITES = "favorites";
+    public static final String PATH_DETAILS_POPULAR = "popular";
+    public static final String PATH_DETAILS_RATED = "rated";
+    public static final String PATH_DETAILS_LIKE = "like";
+    public static final String PATH_DETAILS_UNLIKE = "unlike";
+
+    public static final String PATH_REVIEWS = "reviews";
+    public static final String PATH_TRAILERS = "trailers";
+
+    public static final Uri DETAILS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS).build();
+
     private MoviesContract() {
     } // MoviesContract()
 

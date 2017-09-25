@@ -67,6 +67,7 @@ public class DescriptionActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.arboretum04);
         } // else
 
+        // fetch the data that we want to display in this activity
         Resources resources = getResources();
 
         String movieIdString = Integer.toString(mDetails.getId());
@@ -79,6 +80,7 @@ public class DescriptionActivity extends AppCompatActivity {
         String ratingsString = String.format(resources.getString(R.string.ratingsReport),
                 mDetails.getVoteAverage());
 
+        // display the data
         TextView movieId = (TextView) this.findViewById(R.id.movie_id);
         movieId.setText(movieIdString);
 

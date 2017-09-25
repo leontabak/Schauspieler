@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MovieDatabaseHelper extends SQLiteOpenHelper {
+    private static final String TAG = "MovieDatabaseHelper";
     private static final String DB_NAME = "movies";
     private static final int DB_VERSION = 1;
 
@@ -14,7 +16,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
             MoviesContract.Details.TABLE_NAME +
             " (" +
             MoviesContract.Details._ID +
-            "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             MoviesContract.Details.COLUMN_NAME_MOVIE_ID +
             " INTEGER UNIQUE, " +
             MoviesContract.Details.COLUMN_NAME_ORIGINAL_TITLE +
@@ -70,16 +72,22 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
 
     public MovieDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        Log.d(TAG, "MovieDatabaseHelper (0)");
     } // MovieDatabaseHelper( Context )
 
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "MovieDatabaseHelper (1)");
+
         // create table for movie details
+        db.execSQL(SQL_DROP_DETAILS_TABLE);
         db.execSQL(SQL_CREATE_DETAILS_TABLE);
 
         // create table for movie reviews
+        db.execSQL(SQL_DROP_REVIEWS_TABLE);
         db.execSQL(SQL_CREATE_REVIEWS_TABLE);
 
         // create table for movie trailers
+        db.execSQL(SQL_DROP_TRAILERS_TABLE);
         db.execSQL(SQL_CREATE_TRAILERS_TABLE);
     } // onCreate( SQLiteDatabase )
 
