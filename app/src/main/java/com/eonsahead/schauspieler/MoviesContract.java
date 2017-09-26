@@ -9,16 +9,14 @@ public class MoviesContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     public static final String PATH_DETAILS = "details";
-    public static final String PATH_DETAILS_FAVORITES = "favorites";
-    public static final String PATH_DETAILS_POPULAR = "popular";
-    public static final String PATH_DETAILS_RATED = "rated";
     public static final String PATH_DETAILS_LIKE = "like";
     public static final String PATH_DETAILS_UNLIKE = "unlike";
 
     public static final String PATH_REVIEWS = "reviews";
     public static final String PATH_TRAILERS = "trailers";
 
-    public static final Uri DETAILS_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS).build();
+    public static final Uri DETAILS_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS).build();
 
     private MoviesContract() {
     } // MoviesContract()
@@ -32,6 +30,9 @@ public class MoviesContract {
         public static final String COLUMN_NAME_POPULARITY = "popularity";
         public static final String COLUMN_NAME_RELEASE_DATE = "releaseDate";
         public static final String COLUMN_NAME_POSTER_PATH = "posterPath";
+        public static final String COLUMN_NAME_IS_FAVORITE = "isFavorite";
+        public static final String COLUMN_NAME_IS_POPULAR = "isPopular";
+        public static final String COLUMN_NAME_IS_RATED = "isRated";
     } // Details
 
     public static final class Reviews implements BaseColumns {

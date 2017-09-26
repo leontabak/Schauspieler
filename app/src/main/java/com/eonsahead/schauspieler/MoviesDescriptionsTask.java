@@ -1,9 +1,11 @@
 package com.eonsahead.schauspieler;
 
 
+import android.content.ContentUris;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -68,29 +70,25 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
                 helper.addMovie(db, details);
             } // for
 
-//            MoviesContentProvider cp = new MoviesContentProvider();
-//
-//            String[] columns = {
-//                    MoviesContract.Details._ID,
-//                    MoviesContract.Details.COLUMN_NAME_ORIGINAL_TITLE};
-//            Cursor cursor = db.query(MoviesContract.Details.TABLE_NAME, columns, null, null, null, null, null, null);
-//            while (cursor.moveToNext()) {
-//                String id = cursor.getString(0);
-//                String title = cursor.getString(1);
-//                Log.d(TAG, id + " " + title + " (4-cursor)");
-//            } // while
-
-
             db.close();
 
             Log.d(TAG, "(5)");
-            Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
+            Log.d(TAG, "(5.1) " + MoviesContract.DETAILS_URI.toString());
+//            Uri uri = MoviesContract.DETAILS_URI.buildUpon().appendPath("1").build();
+//            Uri uri = ContentUris.withAppendedId(MoviesContract.DETAILS_URI, 4);
+//            Cursor cursor = mainActivity.getContentResolver().query(uri, null, null, null, null);
+
+//            ContentProviderWrapper wrapper = new ContentProviderWrapper( mainActivity );
+            Log.d(TAG, "(5.2)");
+            //Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
+//            Cursor cursor = wrapper.getAll();
             Log.d(TAG, "(6)");
 //            while( cursor.moveToNext() ) {
 //                String id = cursor.getString(0);
 //                String title = cursor.getString(1);
 //                Log.d(TAG, id + " " + title + " (4-ContentProvider");
 //            } // while
+            //cursor.close();
         } // try
         catch (SQLiteException e) {
             Log.d(TAG, "MoviesDescriptionTask SQLiteException " + e.getMessage());

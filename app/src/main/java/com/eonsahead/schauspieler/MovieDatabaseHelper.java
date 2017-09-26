@@ -30,7 +30,13 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
             MoviesContract.Details.COLUMN_NAME_RELEASE_DATE +
             " TEXT, " +
             MoviesContract.Details.COLUMN_NAME_POSTER_PATH +
-            " TEXT)";
+            " TEXT, " +
+            MoviesContract.Details.COLUMN_NAME_IS_FAVORITE +
+            " INTEGER, " +
+            MoviesContract.Details.COLUMN_NAME_IS_POPULAR +
+            " INTEGER, " +
+            MoviesContract.Details.COLUMN_NAME_IS_RATED +
+            " INTEGER)";
 
     private static final String SQL_CREATE_REVIEWS_TABLE = "" +
             "CREATE TABLE " +
@@ -111,6 +117,28 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
         details.put(MoviesContract.Details.COLUMN_NAME_POPULARITY, movieDetails.getPopularity());
         details.put(MoviesContract.Details.COLUMN_NAME_RELEASE_DATE, movieDetails.getReleaseDate());
         details.put(MoviesContract.Details.COLUMN_NAME_POSTER_PATH, movieDetails.getPosterPath());
+
+        if (movieDetails.getIsFavorite()) {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_FAVORITE, 1);
+        } // if
+        else {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_FAVORITE, 0);
+        } // else
+
+        if (movieDetails.getIsPopular()) {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_POPULAR, 1);
+        } // if
+        else {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_POPULAR, 0);
+        } // else
+
+        if (movieDetails.getIsHighlyRated()) {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_RATED, 1);
+        } // if
+        else {
+            details.put(MoviesContract.Details.COLUMN_NAME_IS_RATED, 0);
+        } // else
+
         db.insert(MoviesContract.Details.TABLE_NAME, null, details);
 
         int movieId = movieDetails.getId();
