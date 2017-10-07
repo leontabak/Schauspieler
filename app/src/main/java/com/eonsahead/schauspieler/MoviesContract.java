@@ -17,6 +17,10 @@ public class MoviesContract {
 
     public static final Uri DETAILS_URI =
             BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS).build();
+    public static final Uri LIKE_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS_LIKE).build();
+    public static final Uri UNLIKE_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS_UNLIKE).build();
 
     private MoviesContract() {
     } // MoviesContract()

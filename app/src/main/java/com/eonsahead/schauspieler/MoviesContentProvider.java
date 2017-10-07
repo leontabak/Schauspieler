@@ -15,6 +15,8 @@ public class MoviesContentProvider extends ContentProvider {
     public static final String TAG = "MoviesContentProvider";
     public static final int DETAILS = 100;
     public static final int DETAILS_WITH_ID = 101;
+    public static final int LIKE_WITH_ID = 102;
+    public static final int UNLIKE_WITH_ID = 103;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -25,9 +27,9 @@ public class MoviesContentProvider extends ContentProvider {
         uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS, DETAILS);
         uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS + "/#", DETAILS_WITH_ID);
         uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS_LIKE + "/#",
-                DETAILS_WITH_ID);
+                LIKE_WITH_ID);
         uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS_UNLIKE + "/#",
-                DETAILS_WITH_ID);
+                UNLIKE_WITH_ID);
         return uriMatcher;
     } // buildUriMatcher()
 
@@ -83,7 +85,7 @@ public class MoviesContentProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown URI " + uri);
         } // switch
 
-        db.close();
+        //db.close();
 
         boolean goodResult = (returnCursor != null);
         Log.d(TAG, "(4.2) return to caller " + goodResult);
@@ -101,12 +103,31 @@ public class MoviesContentProvider extends ContentProvider {
     } // delete( Uri, String, String [] )
 
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        return null;
+        throw new UnsupportedOperationException("Not yet implemented");
     } // insert( Uri, ContentValues )
 
     public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArguments) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        Log.d(TAG, "update (2)");
+        final SQLiteDatabase db = mMovieDatabaseHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        String id = "";
+        switch (match) {
+            case LIKE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                Log.d(TAG, "update (6) got the id = " + id);
+                db.update(MoviesContract.Details.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            case UNLIKE_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                Log.d(TAG, "update (6) got the id = " + id);
+                db.update(MoviesContract.Details.TABLE_NAME, values, selection, selectionArguments);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown URI " + uri);
+        } // switch
+        return 0;
     } // update( Uri, ContentValues, String, String [] )
 
     public String getType(@NonNull Uri uri) {

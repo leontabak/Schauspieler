@@ -1,6 +1,7 @@
 package com.eonsahead.schauspieler;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -119,6 +120,17 @@ public class ContentProviderWrapper {
         return activity.getContentResolver().query(uri, projection, selection,
                 selectionArguments, null);
     } // getHighlyRated()
+
+    public void addToFavorites(int id) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MoviesContract.Details.COLUMN_NAME_IS_FAVORITE, 1);
+    } // addToFavorites( int )
+
+    public void removeFromFavorites(int id) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MoviesContract.Details.COLUMN_NAME_IS_FAVORITE, 0);
+    } // removeFromFavorites( int )
 } // ContentProviderWrapper
 
 

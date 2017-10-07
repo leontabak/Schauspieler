@@ -78,17 +78,18 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 //            Uri uri = ContentUris.withAppendedId(MoviesContract.DETAILS_URI, 4);
 //            Cursor cursor = mainActivity.getContentResolver().query(uri, null, null, null, null);
 
-//            ContentProviderWrapper wrapper = new ContentProviderWrapper( mainActivity );
+            ContentProviderWrapper wrapper = new ContentProviderWrapper(mainActivity);
             Log.d(TAG, "(5.2)");
-            //Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
-//            Cursor cursor = wrapper.getAll();
+//            Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
+            Cursor cursor = wrapper.getFavorites();
             Log.d(TAG, "(6)");
-//            while( cursor.moveToNext() ) {
-//                String id = cursor.getString(0);
-//                String title = cursor.getString(1);
-//                Log.d(TAG, id + " " + title + " (4-ContentProvider");
-//            } // while
-            //cursor.close();
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(0);
+                String title = cursor.getString(1);
+                Log.d(TAG, id + " " + title + " (4-ContentProvider");
+            } // while
+            cursor.close();
+            Log.d(TAG, "(7)");
         } // try
         catch (SQLiteException e) {
             Log.d(TAG, "MoviesDescriptionTask SQLiteException " + e.getMessage());
