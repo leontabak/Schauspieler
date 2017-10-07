@@ -26,12 +26,9 @@ public class DescriptionActivity extends AppCompatActivity {
     private Button mReturnButton;
 
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "DescriptionActivity: onCreate (0)");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_description);
-
-        Log.d(TAG, "DescriptionActivity: onCreate (1)");
 
         if (Mode.ONLINE) {
             mPicasso = new Picasso.Builder(this).listener(new Picasso.Listener() {

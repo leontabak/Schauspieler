@@ -39,9 +39,7 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 //        SortCriterion sortCriterion = mainActivity.getSortCriterion();
 
         if (Mode.ONLINE) {
-            Log.d(TAG, "first call to query");
             query(SortCriterion.POPULARITY);
-            Log.d(TAG, "second call to query");
             query(SortCriterion.RATING);
 
 //            for (MovieDetails details : mMovieDB.getRecords()) {
@@ -55,16 +53,14 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
             generateData(12, SortCriterion.RATING);
         } // else
 
-
-        Log.d(TAG, "MoviesDescriptionsTask (0)");
         MovieDatabaseHelper helper = new MovieDatabaseHelper(mainActivity);
-        Log.d(TAG, "MoviesDescriptionTask (1)");
+
         try {
-            Log.d(TAG, "MoviesDescriptionTask (2)");
+
             SQLiteDatabase db = helper.getWritableDatabase();
-            Log.d(TAG, "MoviesDescriptionTask (3)");
+
             helper.onCreate(db);
-            Log.d(TAG, "MoviesDescriptionTask (4)");
+
             for (MovieDetails details : mMovieDB.getRecords()) {
                 Log.d(TAG, "MoviesDescriptionTask (4-add)");
                 helper.addMovie(db, details);
@@ -72,24 +68,16 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
             db.close();
 
-            Log.d(TAG, "(5)");
-            Log.d(TAG, "(5.1) " + MoviesContract.MOVIES_URI.toString());
-//            Uri uri = MoviesContract.DETAILS_URI.buildUpon().appendPath("1").build();
-//            Uri uri = ContentUris.withAppendedId(MoviesContract.DETAILS_URI, 4);
-//            Cursor cursor = mainActivity.getContentResolver().query(uri, null, null, null, null);
-
             ContentProviderWrapper wrapper = new ContentProviderWrapper(mainActivity);
-            Log.d(TAG, "(5.2)");
-//            Cursor cursor = mainActivity.getContentResolver().query(MoviesContract.DETAILS_URI, null, null, null, null);
+
             Cursor cursor = wrapper.getFavorites();
-            Log.d(TAG, "(6)");
+
             while (cursor.moveToNext()) {
                 String id = cursor.getString(0);
                 String title = cursor.getString(1);
                 Log.d(TAG, id + " " + title + " (4-ContentProvider");
             } // while
             cursor.close();
-            Log.d(TAG, "(7)");
         } // try
         catch (SQLiteException e) {
             Log.d(TAG, "MoviesDescriptionTask SQLiteException " + e.getMessage());
@@ -122,8 +110,6 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
     private void query(SortCriterion sortCriterion) {
         URL url = makeURL(sortCriterion);
 
-        Log.d(TAG, url.toString());
-
         HttpURLConnection connection = null;
         try {
             connection = (HttpURLConnection) url.openConnection();
@@ -146,8 +132,6 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
                     JSONObject movie = array.getJSONObject(i);
                     mMovieDetails = new MovieDetails(movie, sortCriterion);
 
-                    Log.d(TAG, mMovieDetails.getOriginalTitle() + " " + sortCriterion.toString());
-
                     mMovieDB.addRecord(mMovieDetails);
 
                     String title = mMovieDetails.getOriginalTitle();
@@ -169,7 +153,6 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
     private void query(int movieId, String dataType) {
         URL url = makeURL(movieId, dataType);
-//        Log.d(TAG, "url = " + url.toString());
 
         HttpURLConnection connection = null;
         try {
@@ -198,9 +181,6 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
                         Review review = new Review(author, content);
                         mMovieDetails.addReview(review);
-
-//                        Log.d(TAG, "author = " + author);
-//                        Log.d(TAG, "content = " + content);
                     } // if
                     else if (dataType.equals(VIDEOS)) {
                         // fetch a trailer or featurette
@@ -210,10 +190,6 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
 
                         Trailer trailer = new Trailer(name, key, type);
                         mMovieDetails.addTrailer(trailer);
-
-//                        Log.d(TAG, "name = " + name);
-//                        Log.d(TAG, "key = " + key);
-//                        Log.d(TAG, "type = " + type);
                     } // else if
 
                 } // for

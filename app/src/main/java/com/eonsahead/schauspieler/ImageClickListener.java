@@ -23,7 +23,6 @@ public class ImageClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "ImageClickListener: onClick (1)");
 
         Class descriptionActivity = DescriptionActivity.class;
 
@@ -31,10 +30,6 @@ public class ImageClickListener implements View.OnClickListener {
         MovieDetails details = mMovieDB.getRecords(mIndex);
         intent.putExtra(INTENT_ID, details);
 
-        Log.d(TAG, "ImageClickListener: onClick (2)");
-
         mContext.startActivity(intent);
-
-        Log.d(TAG, "ImageClickListener: onClick (3)");
     } // onClick( View )
 } // ImageClickListener

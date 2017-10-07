@@ -99,8 +99,6 @@ public class MovieDetails implements Serializable {
             String posterPath = makePosterPath(json.getString( "poster_path" ), ImageSizes.w500);
             this.setPosterPath( posterPath );
 
-            Log.d(TAG, "create record for " + this.getOriginalTitle() + " " + sortCriterion.toString());
-
             this.mReviews = new ArrayList<>();
             this.mTrailers = new ArrayList<>();
         } // try

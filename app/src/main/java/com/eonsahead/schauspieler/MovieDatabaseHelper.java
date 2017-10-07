@@ -78,7 +78,6 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
 
     public MovieDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        Log.d(TAG, "MovieDatabaseHelper (0)");
     } // MovieDatabaseHelper( Context )
 
     public void onCreate(SQLiteDatabase db) {

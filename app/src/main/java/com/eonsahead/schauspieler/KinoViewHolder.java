@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 public class KinoViewHolder extends RecyclerView.ViewHolder {
-    //    private static final String TAG = KinoViewHolder.class.getSimpleName();
     private static final String TAG = "KinoViewHolder";
 
     private Context mContext;
@@ -46,17 +45,6 @@ public class KinoViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(int index) {
         this.view.setOnClickListener(new ImageClickListener(mContext, index, mMovieDB));
-
-        Log.d(TAG, "bind index = " + index);
-
-        if (mMovieDB == null) {
-            Log.d(TAG, "    null");
-        } // if
-        else {
-            Log.d(TAG, "    not null");
-        } // else
-
-        Log.d(TAG, "database size = " + mMovieDB.size());
 
         if (Mode.ONLINE) {
             if (mMovieDB.size() > 0) {

@@ -84,7 +84,7 @@ public class MovieCursorWrapper extends CursorWrapper {
         else {
             details.clearIsHighlyRated();
         } // else
-        
+
         return details;
     } // getMovieDetails()
 } // MovieCursorWrapper

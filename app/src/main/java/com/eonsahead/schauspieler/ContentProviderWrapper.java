@@ -17,7 +17,6 @@ public class ContentProviderWrapper {
     } // ContentProviderWrapper( AppCompatActivity )
 
     public Cursor getAllMovies() {
-        Log.d(TAG, "-(0)");
         Uri uri = MoviesContract.MOVIES_URI;
         String[] projection = {
                 MoviesContract.Details.COLUMN_NAME_MOVIE_ID,
@@ -33,11 +32,10 @@ public class ContentProviderWrapper {
         };
         String selection = null;
         String[] selectionArguments = null;
-        Log.d(TAG, "-(1)");
-        Log.d(TAG, uri.toString());
+
         Cursor result = activity.getContentResolver().query(uri, null, null,
                 null, null);
-        Log.d(TAG, "-(2)");
+
         return result;
     } // getAllMovies()
 

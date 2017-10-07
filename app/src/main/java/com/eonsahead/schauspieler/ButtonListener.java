@@ -9,9 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-/**
- * Created by LTabak on 7/28/2017.
- */
 
 public class ButtonListener implements OnClickListener {
     private static final String TAG = "ButtonListener";
@@ -33,8 +30,6 @@ public class ButtonListener implements OnClickListener {
                 this.activity.finish();
                 break;
             case R.id.play_trailer:
-//                Toast.makeText( this.activity.getApplication(), "Hello", Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse("https://youtu.be/X1UmHfWCw-4"), "view/*");
 
@@ -50,22 +45,19 @@ public class ButtonListener implements OnClickListener {
                 break;
             case R.id.favorite:
                 Button button = this.activity.getFavoriteButton();
-                Log.d(TAG, "(1) is favorite? " + activity.getDetails().getIsFavorite());
+
                 if (activity.getDetails().getIsFavorite()) {
-                    Log.d(TAG, "clearing");
                     activity.getDetails().clearIsFavorite();
                     button.setText(R.string.favorite);
                     button.setBackgroundResource(R.color.favorite);
                     favorite = false;
                 } // if
                 else {
-                    Log.d(TAG, "setting");
                     activity.getDetails().setIsFavorite();
                     button.setText(R.string.unfavorite);
                     button.setBackgroundResource(R.color.unfavorite);
                     favorite = true;
                 } // else
-                Log.d(TAG, "(2) is favorite? " + activity.getDetails().getIsFavorite());
                 break;
             default:
                 break;

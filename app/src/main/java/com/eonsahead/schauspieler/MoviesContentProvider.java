@@ -34,20 +34,16 @@ public class MoviesContentProvider extends ContentProvider {
     } // buildUriMatcher()
 
     public boolean onCreate() {
-        Log.d(TAG, "onCreate (0)");
         Context context = this.getContext();
         mMovieDatabaseHelper = new MovieDatabaseHelper(context);
-        Log.d(TAG, "onCreate (1)");
         return true;
     } // onCreate()
 
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArguments, String sortOrder) {
 
-        Log.d(TAG, "query (2)");
         final SQLiteDatabase db = mMovieDatabaseHelper.getReadableDatabase();
 
-        Log.d(TAG, "query (3) " + uri.toString());
         int match = sUriMatcher.match(uri);
         Cursor returnCursor;
 
@@ -55,8 +51,6 @@ public class MoviesContentProvider extends ContentProvider {
 
         switch (match) {
             case MOVIES:
-                Log.d(TAG, "query (4) got a match with ALL");
-
                 Cursor result = db.query(
                         MoviesContract.Details.TABLE_NAME,
                         projection,
@@ -66,13 +60,10 @@ public class MoviesContentProvider extends ContentProvider {
                         null,
                         sortOrder
                 );
-                Log.d(TAG, "query (4.1) got a result");
                 returnCursor = result;
                 break;
             case REVIEWS_ID:
-                Log.d(TAG, "query (5) got a match with ALL with an id");
                 id = uri.getPathSegments().get(1);
-                Log.d(TAG, "query (6) got the id = " + id);
                 returnCursor = db.query(
                         MoviesContract.Reviews.TABLE_NAME,
                         projection,
@@ -84,9 +75,7 @@ public class MoviesContentProvider extends ContentProvider {
                 );
                 break;
             case TRAILERS_ID:
-                Log.d(TAG, "query (5) got a match with ALL with an id");
                 id = uri.getPathSegments().get(1);
-                Log.d(TAG, "query (6) got the id = " + id);
                 returnCursor = db.query(
                         MoviesContract.Trailers.TABLE_NAME,
                         projection,
@@ -104,13 +93,19 @@ public class MoviesContentProvider extends ContentProvider {
         //db.close();
 
         boolean goodResult = (returnCursor != null);
-        Log.d(TAG, "(4.2) return to caller " + goodResult);
-        Log.d(TAG, "(4.3) count = ");
 //        while( returnCursor.moveToNext() ) {
 //                String id = returnCursor.getString(0);
 //                String title = returnCursor.getString(1);
 //                Log.d(TAG, id + " " + title + " (4-ContentProvider");
 //            } // while
+
+        MovieCursorWrapper cursorWrapper = new MovieCursorWrapper(returnCursor);
+        while (cursorWrapper.moveToNext()) {
+            MovieDetails details = cursorWrapper.getMovieDetails();
+            int movieId = details.getId();
+            String title = details.getOriginalTitle();
+            Log.d(TAG, movieId + " " + title);
+        } // while
 
         ContentResolver contentResolver = getContext().getContentResolver();
         returnCursor.setNotificationUri(contentResolver, uri);
@@ -128,14 +123,12 @@ public class MoviesContentProvider extends ContentProvider {
     public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArguments) {
 
-        Log.d(TAG, "update (2)");
         final SQLiteDatabase db = mMovieDatabaseHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         String id = "";
         switch (match) {
             case MOVIES_ID:
                 id = uri.getPathSegments().get(1);
-                Log.d(TAG, "update (6) got the id = " + id);
                 db.update(MoviesContract.Details.TABLE_NAME, values, selection, selectionArguments);
                 break;
             default:
