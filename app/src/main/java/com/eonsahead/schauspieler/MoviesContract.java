@@ -8,19 +8,17 @@ public class MoviesContract {
     public static final String AUTHORITY = "com.eonsahead.schauspieler";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
-    public static final String PATH_DETAILS = "details";
-    public static final String PATH_DETAILS_LIKE = "like";
-    public static final String PATH_DETAILS_UNLIKE = "unlike";
-
+    public static final String PATH_MOVIES = "movies";
     public static final String PATH_REVIEWS = "reviews";
     public static final String PATH_TRAILERS = "trailers";
 
-    public static final Uri DETAILS_URI =
-            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS).build();
-    public static final Uri LIKE_URI =
-            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS_LIKE).build();
-    public static final Uri UNLIKE_URI =
-            BASE_CONTENT_URI.buildUpon().appendPath(PATH_DETAILS_UNLIKE).build();
+
+    public static final Uri MOVIES_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIES).build();
+    public static final Uri REVIEWS_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_REVIEWS).build();
+    public static final Uri TRAILERS_URI =
+            BASE_CONTENT_URI.buildUpon().appendPath(PATH_TRAILERS).build();
 
     private MoviesContract() {
     } // MoviesContract()

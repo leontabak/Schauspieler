@@ -2,6 +2,7 @@ package com.eonsahead.schauspieler;
 
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -13,10 +14,10 @@ import android.util.Log;
 
 public class MoviesContentProvider extends ContentProvider {
     public static final String TAG = "MoviesContentProvider";
-    public static final int DETAILS = 100;
-    public static final int DETAILS_WITH_ID = 101;
-    public static final int LIKE_WITH_ID = 102;
-    public static final int UNLIKE_WITH_ID = 103;
+    public static final int MOVIES = 100;
+    public static final int MOVIES_ID = 101;
+    public static final int REVIEWS_ID = 201;
+    public static final int TRAILERS_ID = 301;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -24,12 +25,11 @@ public class MoviesContentProvider extends ContentProvider {
 
     public static UriMatcher buildUriMatcher() {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS, DETAILS);
-        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS + "/#", DETAILS_WITH_ID);
-        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS_LIKE + "/#",
-                LIKE_WITH_ID);
-        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_DETAILS_UNLIKE + "/#",
-                UNLIKE_WITH_ID);
+        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_MOVIES, MOVIES);
+        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_MOVIES + "/#", MOVIES_ID);
+        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_REVIEWS + "/#", REVIEWS_ID);
+        uriMatcher.addURI(MoviesContract.AUTHORITY, MoviesContract.PATH_TRAILERS + "/#",
+                TRAILERS_ID);
         return uriMatcher;
     } // buildUriMatcher()
 
@@ -51,8 +51,10 @@ public class MoviesContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         Cursor returnCursor;
 
+        String id;
+
         switch (match) {
-            case DETAILS:
+            case MOVIES:
                 Log.d(TAG, "query (4) got a match with ALL");
 
                 Cursor result = db.query(
@@ -67,12 +69,26 @@ public class MoviesContentProvider extends ContentProvider {
                 Log.d(TAG, "query (4.1) got a result");
                 returnCursor = result;
                 break;
-            case DETAILS_WITH_ID:
+            case REVIEWS_ID:
                 Log.d(TAG, "query (5) got a match with ALL with an id");
-                String id = uri.getPathSegments().get(1);
+                id = uri.getPathSegments().get(1);
                 Log.d(TAG, "query (6) got the id = " + id);
                 returnCursor = db.query(
-                        MoviesContract.Details.TABLE_NAME,
+                        MoviesContract.Reviews.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            case TRAILERS_ID:
+                Log.d(TAG, "query (5) got a match with ALL with an id");
+                id = uri.getPathSegments().get(1);
+                Log.d(TAG, "query (6) got the id = " + id);
+                returnCursor = db.query(
+                        MoviesContract.Trailers.TABLE_NAME,
                         projection,
                         selection,
                         selectionArguments,
@@ -95,6 +111,9 @@ public class MoviesContentProvider extends ContentProvider {
 //                String title = returnCursor.getString(1);
 //                Log.d(TAG, id + " " + title + " (4-ContentProvider");
 //            } // while
+
+        ContentResolver contentResolver = getContext().getContentResolver();
+        returnCursor.setNotificationUri(contentResolver, uri);
         return returnCursor;
     } // query( Uri, String [], String, String [], String )
 
@@ -114,12 +133,7 @@ public class MoviesContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         String id = "";
         switch (match) {
-            case LIKE_WITH_ID:
-                id = uri.getPathSegments().get(1);
-                Log.d(TAG, "update (6) got the id = " + id);
-                db.update(MoviesContract.Details.TABLE_NAME, values, selection, selectionArguments);
-                break;
-            case UNLIKE_WITH_ID:
+            case MOVIES_ID:
                 id = uri.getPathSegments().get(1);
                 Log.d(TAG, "update (6) got the id = " + id);
                 db.update(MoviesContract.Details.TABLE_NAME, values, selection, selectionArguments);

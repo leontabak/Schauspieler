@@ -61,6 +61,10 @@ public class MovieDetails implements Serializable {
         count++;
     } // MovieDetails()
 
+    public MovieDetails(int movieId) {
+        mId = movieId;
+    } // MovieDetails( int )
+
     public MovieDetails(JSONObject json, SortCriterion sortCriterion) {
         try {
             int id = json.getInt("id");

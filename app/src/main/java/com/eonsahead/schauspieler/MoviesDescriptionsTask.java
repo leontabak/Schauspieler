@@ -73,7 +73,7 @@ public class MoviesDescriptionsTask extends AsyncTask<MainActivity, Void, MainAc
             db.close();
 
             Log.d(TAG, "(5)");
-            Log.d(TAG, "(5.1) " + MoviesContract.DETAILS_URI.toString());
+            Log.d(TAG, "(5.1) " + MoviesContract.MOVIES_URI.toString());
 //            Uri uri = MoviesContract.DETAILS_URI.buildUpon().appendPath("1").build();
 //            Uri uri = ContentUris.withAppendedId(MoviesContract.DETAILS_URI, 4);
 //            Cursor cursor = mainActivity.getContentResolver().query(uri, null, null, null, null);
